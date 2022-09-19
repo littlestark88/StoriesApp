@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentasion.stories.DetailStoriesActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_250dp"
+        android:layout_marginStart="@dimen/dimens_4dp"
+        android:layout_marginTop="@dimen/dimens_4dp"
+        android:layout_marginEnd="@dimen/dimens_4dp"
+        app:cardCornerRadius="@dimen/dimens_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:transitionName="photo"
+            android:contentDescription="@string/label_image_photo"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher_round" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_16dp"
+        android:transitionName="name"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="@dimen/text_size_16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/dimens_32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvPhoto"/>
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_14sp"
+        android:transitionName="description"
+        android:layout_marginTop="@dimen/dimens_4dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textColor="@color/colorTextGray"
+        android:layout_marginStart="@dimen/dimens_32dp"
+        android:layout_marginEnd="@dimen/dimens_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

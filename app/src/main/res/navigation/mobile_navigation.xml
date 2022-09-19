@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_stories">
+
+    <fragment
+        android:id="@+id/navigation_stories"
+        android:name="com.example.storyapp.presentasion.stories.StoriesFragment"
+        android:label="@string/label_stories"
+        tools:layout="@layout/fragment_stories" />
+
+    <fragment
+        android:id="@+id/navigation_post_stories"
+        android:name="com.example.storyapp.presentasion.poststories.PostStoriesFragment"
+        android:label="@string/label_post_stories"
+        tools:layout="@layout/fragment_post_stories" >
+        <action
+            android:id="@+id/action_navigation_post_stories_to_navigation_stories"
+            app:destination="@id/navigation_stories"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_stories"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.example.storyapp.presentasion.setting.SettingFragment"
+        android:label="@string/label_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>

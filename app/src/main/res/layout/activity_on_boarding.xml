@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_on_boarding_scene"
+    tools:context=".presentasion.onboarding.OnBoardingActivity">
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imgLogo"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="@dimen/dimens_70dp"
+        android:layout_marginStart="@dimen/dimens_32dp"
+        android:layout_marginEnd="@dimen/dimens_32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/stories_logo" />
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_black"
+        android:text="@string/label_start"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/dimens_16dp"
+        android:layout_marginEnd="@dimen/dimens_16dp"
+        android:layout_marginBottom="@dimen/dimens_0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/onBoarding1"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="@dimen/dimens_300dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="building.json"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"/>
+
+    <TextView
+        android:id="@+id/tvTitleOnBoarding1"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:text="@string/label_new_stories"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/onBoarding1"
+        app:layout_constraintStart_toStartOf="@+id/onBoarding1"
+        app:layout_constraintTop_toBottomOf="@+id/onBoarding1" />
+
+    <TextView
+        android:id="@+id/tvDescOnBoarding1"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_8dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:text="@string/label_desc_new_stories"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleOnBoarding1"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleOnBoarding1"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleOnBoarding1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/onBoarding2"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="@dimen/dimens_300dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="onboarding.json"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"/>
+
+    <TextView
+        android:id="@+id/tvTitleOnBoarding2"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:text="@string/label_help_solution"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/onBoarding2"
+        app:layout_constraintStart_toStartOf="@+id/onBoarding2"
+        app:layout_constraintTop_toBottomOf="@+id/onBoarding2" />
+
+    <TextView
+        android:id="@+id/tvDescOnBoarding2"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_8dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:text="@string/label_solution"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleOnBoarding2"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleOnBoarding2"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleOnBoarding2" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/onBoarding3"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="@dimen/dimens_300dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="onboarding1.json"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"/>
+
+    <TextView
+        android:id="@+id/tvTitleOnBoarding3"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:text="@string/label_sharing"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/onBoarding3"
+        app:layout_constraintStart_toStartOf="@+id/onBoarding3"
+        app:layout_constraintTop_toBottomOf="@+id/onBoarding3" />
+
+    <TextView
+        android:id="@+id/tvDescOnBoarding3"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_8dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:text="@string/label_desc_sharing"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleOnBoarding3"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleOnBoarding3"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleOnBoarding3" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/onBoarding4"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="@dimen/dimens_300dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="onboarding2.json"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"/>
+
+    <TextView
+        android:id="@+id/tvTitleOnBoarding4"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:text="@string/label_connection"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/onBoarding4"
+        app:layout_constraintStart_toStartOf="@+id/onBoarding4"
+        app:layout_constraintTop_toBottomOf="@+id/onBoarding4" />
+
+    <TextView
+        android:id="@+id/tvDescOnBoarding4"
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_8dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:text="@string/label_desc_connection"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleOnBoarding4"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleOnBoarding4"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleOnBoarding4" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/dotOnBoarding1"
+        android:layout_width="@dimen/dimens_10dp"
+        android:layout_height="@dimen/dimens_10dp"
+        android:layout_marginStart="@dimen/dimens_32dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintEnd_toStartOf="@+id/dotOnBoarding2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/black" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/dotOnBoarding2"
+        android:layout_width="@dimen/dimens_10dp"
+        android:layout_height="@dimen/dimens_10dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintBottom_toBottomOf="@+id/dotOnBoarding1"
+        app:layout_constraintEnd_toStartOf="@+id/dotOnBoarding3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dotOnBoarding1"
+        app:layout_constraintTop_toTopOf="@+id/dotOnBoarding1"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/black" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/dotOnBoarding3"
+        android:layout_width="@dimen/dimens_10dp"
+        android:layout_height="@dimen/dimens_10dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintBottom_toBottomOf="@+id/dotOnBoarding2"
+        app:layout_constraintEnd_toStartOf="@+id/dotOnBoarding4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dotOnBoarding2"
+        app:layout_constraintTop_toTopOf="@+id/dotOnBoarding2"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/black" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/dotOnBoarding4"
+        android:layout_width="@dimen/dimens_10dp"
+        android:layout_height="@dimen/dimens_10dp"
+        android:layout_marginEnd="@dimen/dimens_32dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintBottom_toBottomOf="@+id/dotOnBoarding3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dotOnBoarding3"
+        app:layout_constraintTop_toTopOf="@+id/dotOnBoarding3"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/black" />
+</androidx.constraintlayout.motion.widget.MotionLayout>
