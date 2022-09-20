@@ -23,6 +23,10 @@ buildscript {
     ext.junit_version = "4.13.2"
     ext.junit_test_version = "1.1.3"
     ext.espresso_test_version = "3.4.2"
+    ext.paging_version = "3.1.1"
+    ext.paging_room_version = "2.5.0-alpha03"
+    ext.room_version = "2.4.3"
+
 
 }
 

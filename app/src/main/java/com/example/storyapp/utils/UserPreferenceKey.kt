@@ -14,4 +14,5 @@ object UserPreferenceKey {
     const val LIST_IMAGE = "list_image"
     const val TOAST_ACTION = "com.example.storyapp.TOAST_ACTION"
     const val EXTRA_ITEM = "com.example.storyapp.EXTRA_ITEM"
+    const val INITIAL_PAGE_INDEX = 1
 }

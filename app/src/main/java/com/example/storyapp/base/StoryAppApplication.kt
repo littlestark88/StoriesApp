@@ -15,6 +15,7 @@ class StoryAppApplication: Application() {
             modules(
                 listOf(
                     networkModule,
+                    databaseModule,
                     sharePreferencesModule,
                     repositoryModule,
                     useCaseModule,

@@ -1,15 +1,19 @@
 package com.example.storyapp.di
 
+import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.example.storyapp.BuildConfig
+import com.example.storyapp.BuildConfig.BASE_URL
+import com.example.storyapp.data.local.StoriesDatabase
 import com.example.storyapp.data.remote.RemoteDataSource
 import com.example.storyapp.data.remote.StoriesRepository
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.domain.IStoriesRepository
 import com.example.storyapp.utils.SharePreferences
 import okhttp3.OkHttpClient
+import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -40,11 +44,21 @@ val networkModule = module {
 
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(org.koin.android.BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
         retrofit.create(ApiService::class.java)
+    }
+}
+
+val databaseModule = module {
+    factory { get<StoriesDatabase>().getAllStoriesDao() }
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            StoriesDatabase::class.java, "Stories.db"
+        ).fallbackToDestructiveMigration().build()
     }
 }
 

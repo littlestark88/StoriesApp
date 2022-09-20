@@ -5,6 +5,7 @@ import com.example.storyapp.base.ApiResponse
 import com.example.storyapp.base.BaseResponse
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
+import com.example.storyapp.data.remote.request.poststories.PostStoriesRequestItem
 import com.example.storyapp.data.remote.request.register.RegisterRequestItem
 import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesResponse
 import com.example.storyapp.data.remote.response.login.LoginResponse
@@ -38,10 +39,10 @@ class RemoteDataSource(
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun postStories(token: String, fileImage: MultipartBody.Part, description: RequestBody): Flow<ApiResponse<BaseResponse>> {
+    suspend fun postStories(token: String, fileImage: MultipartBody.Part, postStoriesRequestItem: PostStoriesRequestItem): Flow<ApiResponse<BaseResponse>> {
         return flow {
             try {
-                val data = apiService.postStories(token, fileImage, description)
+                val data = apiService.postStories(token, fileImage, postStoriesRequestItem)
                 if(data.message?.isNotEmpty() == true) {
                     emit(ApiResponse.Success(data))
                 } else {
