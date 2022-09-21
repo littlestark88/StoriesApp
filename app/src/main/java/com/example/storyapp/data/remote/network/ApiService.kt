@@ -28,9 +28,9 @@ interface ApiService {
     @GET("stories")
     suspend fun getAllStories(
         @Header("Authorization") auth: String,
-        @Query("size") size: Int,
-        @Query("page") page: Int,
-        @Query("location") location: Int
+        @Query("size") size: Int? = 0,
+        @Query("page") page: Int? = 0,
+        @Query("location") location: Int? = 1
     ): List<GetAllStoriesItem>
 
 }

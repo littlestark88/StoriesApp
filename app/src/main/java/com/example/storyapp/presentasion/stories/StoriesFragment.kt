@@ -47,36 +47,42 @@ class StoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        storiesViewModel.getStories(sharePreferences.getToken().toString())
-        storiesViewModel.getStories.observe(viewLifecycleOwner) {
-            if(it.data?.listGetStories?.isNotEmpty() == true) {
-                when(it) {
-                    is Resource.Loading -> showLoading(requireContext())
-                    is Resource.Empty -> {
-                        hideLoading()
-                        binding?.rvStories?.visibility = View.GONE
-                        binding?.emptyAnimation?.visibility = View.VISIBLE
-                    }
-                    is Resource.Success -> {
-                        hideLoading()
-                        binding?.rvStories?.visibility = View.VISIBLE
-                        binding?.emptyAnimation?.visibility = View.GONE
-                        it.data.listGetStories.let { dataList ->
-                            storiesAdapter.setListStories(dataList)
-                            showRecyclerListStories()
-                        }
-                    }
-                    is Resource.Error -> {
-                        hideLoading()
-                        showCustomAlertDialogOneButton(
-                            requireActivity(),
-                            message = getString(R.string.label_failed_load_data)
-                        )
-                    }
-                }
-            }
+        binding?.tes?.setOnClickListener {
+            storiesViewModel.getStories(sharePreferences.getToken().toString())
+            storiesViewModel.getStories.observe(viewLifecycleOwner) {
 
+            }
         }
+
+//        storiesViewModel.getStories.observe(viewLifecycleOwner) {
+//            if(it.data?.listGetStories?.isNotEmpty() == true) {
+//                when(it) {
+//                    is Resource.Loading -> showLoading(requireContext())
+//                    is Resource.Empty -> {
+//                        hideLoading()
+//                        binding?.rvStories?.visibility = View.GONE
+//                        binding?.emptyAnimation?.visibility = View.VISIBLE
+//                    }
+//                    is Resource.Success -> {
+//                        hideLoading()
+//                        binding?.rvStories?.visibility = View.VISIBLE
+//                        binding?.emptyAnimation?.visibility = View.GONE
+//                        it.data.listGetStories.let { dataList ->
+//                            storiesAdapter.setListStories(dataList)
+//                            showRecyclerListStories()
+//                        }
+//                    }
+//                    is Resource.Error -> {
+//                        hideLoading()
+//                        showCustomAlertDialogOneButton(
+//                            requireActivity(),
+//                            message = getString(R.string.label_failed_load_data)
+//                        )
+//                    }
+//                }
+//            }
+//
+//        }
     }
 
     private fun showRecyclerListStories () {

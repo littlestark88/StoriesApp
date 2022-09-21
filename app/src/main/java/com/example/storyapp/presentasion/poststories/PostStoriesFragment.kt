@@ -107,11 +107,11 @@ class PostStoriesFragment : Fragment() {
             file.name,
             requestImageFile
         )
-        storiesViewModel.postStories(
-            sharePreferences.getToken().toString(),
-            imageMultipart,
-            requestDescription
-        )
+//        storiesViewModel.postStories(
+//            sharePreferences.getToken().toString(),
+//            imageMultipart,
+//            requestDescription
+//        )
         postStoriesObserver()
     }
 

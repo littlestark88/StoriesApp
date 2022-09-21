@@ -19,7 +19,8 @@ class StoryAppApplication: Application() {
                     sharePreferencesModule,
                     repositoryModule,
                     useCaseModule,
-                    viewModelModule
+                    viewModelModule,
+                    storiesRemoteMediatorModule
                 )
             )
         }

@@ -1,11 +1,13 @@
 package com.example.storyapp.di
 
+import androidx.paging.RemoteMediator
 import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.example.storyapp.BuildConfig
 import com.example.storyapp.BuildConfig.BASE_URL
+import com.example.storyapp.data.StoriesRemoteMediator
 import com.example.storyapp.data.local.StoriesDatabase
 import com.example.storyapp.data.remote.RemoteDataSource
 import com.example.storyapp.data.remote.StoriesRepository
@@ -13,7 +15,6 @@ import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.domain.IStoriesRepository
 import com.example.storyapp.utils.SharePreferences
 import okhttp3.OkHttpClient
-import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -44,7 +45,7 @@ val networkModule = module {
 
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl(org.koin.android.BuildConfig.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
@@ -68,5 +69,9 @@ val sharePreferencesModule = module {
 
 val repositoryModule = module {
     single { RemoteDataSource(get(), get()) }
-    factory<IStoriesRepository> { StoriesRepository(get()) }
+    factory<IStoriesRepository> { StoriesRepository(get(),get(),get(),get()) }
+}
+
+val storiesRemoteMediatorModule = module {
+    factory { StoriesRemoteMediator(get(), get(), get()) }
 }

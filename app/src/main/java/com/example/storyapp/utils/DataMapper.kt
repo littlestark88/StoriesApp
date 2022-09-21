@@ -1,6 +1,9 @@
 package com.example.storyapp.utils
 
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.storyapp.base.BaseResponse
+import com.example.storyapp.data.local.GetAllStoriesEntity
 import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesItem
 import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesResponse
 import com.example.storyapp.data.remote.response.login.LoginItem
@@ -56,5 +59,28 @@ object DataMapper {
                 createdAt = it.createdAt.orEmpty()
             )
         } ?: emptyList()
+
+    fun mapGetStoriesEntity(listData: List<GetAllStoriesItem>): List<GetAllStoriesEntity> =
+        listData.map {
+            GetAllStoriesEntity(
+                id = it.id.orEmpty(),
+                name = it.name.orEmpty(),
+                description = it.description.orEmpty(),
+                photoUrl = it.photoUrl,
+                createdAt = it.createdAt.orEmpty()
+            )
+        }
+
+    fun mapGetStoriesPaging(listData: PagingData<GetAllStoriesEntity>): PagingData<ListGetAllStories> =
+        listData.map {
+            ListGetAllStories(
+                id = it.id,
+                name = it.name.orEmpty(),
+                description = it.description.orEmpty(),
+                photoUrl = it.photoUrl,
+                createdAt = it.createdAt.orEmpty()
+            )
+        }
 }
+
 

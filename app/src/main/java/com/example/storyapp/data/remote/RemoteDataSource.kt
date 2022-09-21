@@ -72,24 +72,24 @@ class RemoteDataSource(
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getStories(token: String): Flow<ApiResponse<GetAllStoriesResponse>> {
-        return flow {
-            try {
-                val data = apiService.getAllStories(token)
-                if(data.message?.isNotEmpty() == true) {
-                    val listImage: ArrayList<String> = ArrayList()
-                    emit(ApiResponse.Success(data))
-                    for(i in data.getAllStoriesItem) {
-                        listImage.addAll(listOf(i.photoUrl))
-                    }
-                    sharePreferences.saveListString(LIST_IMAGE, listImage)
-                } else {
-                    emit(ApiResponse.Empty)
-                }
-            } catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
-                Log.e("remoteDataSource: ", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-    }
+//    suspend fun getStories(token: String): Flow<ApiResponse<GetAllStoriesResponse>> {
+//        return flow {
+//            try {
+//                val data = apiService.getAllStories(token)
+//                if(data.message?.isNotEmpty() == true) {
+//                    val listImage: ArrayList<String> = ArrayList()
+//                    emit(ApiResponse.Success(data))
+//                    for(i in data.getAllStoriesItem) {
+//                        listImage.addAll(listOf(i.photoUrl))
+//                    }
+//                    sharePreferences.saveListString(LIST_IMAGE, listImage)
+//                } else {
+//                    emit(ApiResponse.Empty)
+//                }
+//            } catch (e: Exception) {
+//                emit(ApiResponse.Error(e.toString()))
+//                Log.e("remoteDataSource: ", e.toString())
+//            }
+//        }.flowOn(Dispatchers.IO)
+//    }
 }

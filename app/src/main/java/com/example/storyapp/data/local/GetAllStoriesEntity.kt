@@ -9,7 +9,7 @@ data class GetAllStoriesEntity(
 
     @PrimaryKey
     @SerializedName("id")
-    val id: String?,
+    val id: String,
 
     @SerializedName("name")
     val name: String?,
