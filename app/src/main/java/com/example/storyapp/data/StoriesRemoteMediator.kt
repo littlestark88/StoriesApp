@@ -1,6 +1,7 @@
 package com.example.storyapp.data
 
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -33,9 +34,11 @@ class StoriesRemoteMediator(
         return try {
             val responseData = apiService.getAllStories(token, state.config.pageSize, page, location)
             val endOfPaginationReached = responseData.isEmpty()
-
+            Log.e("loadStories" ,"remoteMediator: 1" )
             database.withTransaction {
+                Log.e("loadStories" ,"remoteMediator: 2" )
                 if(loadType == LoadType.REFRESH) {
+                    Log.e("loadStories" ,"remoteMediator: 3" )
                     database.getAllStoriesDao().deleteAll()
                 }
                 database.getAllStoriesDao().insertAllStories(DataMapper.mapGetStoriesEntity(responseData))

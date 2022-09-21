@@ -29,8 +29,8 @@ class StoriesViewModel(
     val postLogin: LiveData<Resource<Login>> by lazy { _postLogin }
     private val _postLogin = MutableLiveData<Resource<Login>>()
 
-    val getStories: LiveData<PagingData<ListGetAllStories>> by lazy { _getStories }
-    private val _getStories = MutableLiveData<PagingData<ListGetAllStories>>()
+//    val getStories: LiveData<PagingData<ListGetAllStories>> by lazy { _getStories }
+//    private val _getStories = MutableLiveData<PagingData<ListGetAllStories>>()
 
     fun postRegister(registerRequestItem: RegisterRequestItem) =
         viewModelScope.launch {
@@ -53,6 +53,6 @@ class StoriesViewModel(
             }
         }
 
-    fun getStories(token: String): LiveData<PagingData<ListGetAllStories>> =
+    fun getStories(token: String) =
         storiesUseCase.getAllStories(token).cachedIn(viewModelScope).asLiveData()
 }

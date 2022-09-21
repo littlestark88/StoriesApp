@@ -1,14 +1,12 @@
-package com.example.storyapp.data.remote
+package com.example.storyapp.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import androidx.paging.*
 import com.example.storyapp.base.ApiResponse
 import com.example.storyapp.base.BaseResponse
-import com.example.storyapp.data.StoriesRemoteMediator
 import com.example.storyapp.data.lib.NetworkBoundResource
 import com.example.storyapp.data.lib.Resource
 import com.example.storyapp.data.local.StoriesDatabase
+import com.example.storyapp.data.remote.RemoteDataSource
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
 import com.example.storyapp.data.remote.request.poststories.PostStoriesRequestItem
@@ -25,7 +23,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 class StoriesRepository(
     private val databaseStories: StoriesDatabase,
@@ -97,7 +94,6 @@ class StoriesRepository(
             }
         ).flow.map{
             DataMapper.mapGetStoriesPaging(it)
-
         }
     }
 

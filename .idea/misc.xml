@@ -34,10 +34,13 @@
         <entry key="..\:/Users/LittleStark/AndroidStudioProjects/StoryApp/app/src/main/res/layout/fragment_stories.xml" value="0.18" />
         <entry key="..\:/Users/LittleStark/AndroidStudioProjects/StoryApp/app/src/main/res/layout/item_list_stories.xml" value="0.23121387283236994" />
         <entry key="..\:/Users/LittleStark/AndroidStudioProjects/StoryApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18697916666666667" />
+        <entry key="..\:/Users/agrwahyu7279/Documents/StoriesApp/app/src/main/res/layout/fragment_stories.xml" value="0.1" />
+        <entry key="..\:/Users/agrwahyu7279/Documents/StoriesApp/app/src/main/res/layout/item_loading_layout.xml" value="0.17864583333333334" />
+        <entry key="..\:/Users/agrwahyu7279/Documents/StoriesApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1796875" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

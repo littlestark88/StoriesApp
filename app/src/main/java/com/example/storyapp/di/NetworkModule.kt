@@ -1,16 +1,14 @@
 package com.example.storyapp.di
 
-import androidx.paging.RemoteMediator
 import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
-import com.example.storyapp.BuildConfig
 import com.example.storyapp.BuildConfig.BASE_URL
 import com.example.storyapp.data.StoriesRemoteMediator
+import com.example.storyapp.data.StoriesRepository
 import com.example.storyapp.data.local.StoriesDatabase
 import com.example.storyapp.data.remote.RemoteDataSource
-import com.example.storyapp.data.remote.StoriesRepository
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.domain.IStoriesRepository
 import com.example.storyapp.utils.SharePreferences
