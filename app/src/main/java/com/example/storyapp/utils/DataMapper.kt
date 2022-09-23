@@ -3,9 +3,8 @@ package com.example.storyapp.utils
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.storyapp.base.BaseResponse
-import com.example.storyapp.data.local.GetAllStoriesEntity
+import com.example.storyapp.data.local.entity.GetAllStoriesEntity
 import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesItem
-import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesResponse
 import com.example.storyapp.data.remote.response.login.LoginItem
 import com.example.storyapp.data.remote.response.login.LoginResponse
 import com.example.storyapp.domain.data.response.*
@@ -41,35 +40,18 @@ object DataMapper {
         )
     }
 
-    fun mapGetStoriesToDomain(response: GetAllStoriesResponse?): GetAllStories {
-        return GetAllStories(
-            error = response?.error ?: false,
-            message = response?.message.orEmpty(),
-            listGetStories = mapListGetStories(response?.getAllStoriesItem)
-        )
-    }
-
-    private fun mapListGetStories(listData: List<GetAllStoriesItem>?): List<ListGetAllStories> =
+    fun mapGetStoriesEntity(listData: List<GetAllStoriesItem>?): List<GetAllStoriesEntity> =
         listData?.map {
-            ListGetAllStories(
-                id = it.id.orEmpty(),
-                name = it.name.orEmpty(),
-                description = it.description.orEmpty(),
-                photoUrl = it.photoUrl,
-                createdAt = it.createdAt.orEmpty()
-            )
-        } ?: emptyList()
-
-    fun mapGetStoriesEntity(listData: List<GetAllStoriesItem>): List<GetAllStoriesEntity> =
-        listData.map {
             GetAllStoriesEntity(
                 id = it.id.orEmpty(),
                 name = it.name.orEmpty(),
                 description = it.description.orEmpty(),
                 photoUrl = it.photoUrl,
-                createdAt = it.createdAt.orEmpty()
+                createdAt = it.createdAt.orEmpty(),
+                latitude = it.latitude ?: 0.0,
+                longitude = it.longitude ?: 0.0
             )
-        }
+        } ?: emptyList()
 
     fun mapGetStoriesPaging(listData: PagingData<GetAllStoriesEntity>): PagingData<ListGetAllStories> =
         listData.map {
@@ -78,7 +60,22 @@ object DataMapper {
                 name = it.name.orEmpty(),
                 description = it.description.orEmpty(),
                 photoUrl = it.photoUrl,
-                createdAt = it.createdAt.orEmpty()
+                createdAt = it.createdAt.orEmpty(),
+                latitude = it.latitude ?: 0.0,
+                longitude = it.longitude?: 0.0
+            )
+        }
+
+    fun mapGetStoriesWithoutPaging(listData: List<GetAllStoriesEntity>): List<ListGetAllStories> =
+        listData.map {
+            ListGetAllStories(
+                id = it.id,
+                name = it.name.orEmpty(),
+                description = it.description.orEmpty(),
+                photoUrl = it.photoUrl,
+                createdAt = it.createdAt.orEmpty(),
+                latitude = it.latitude ?: 0.0,
+                longitude = it.longitude ?: 0.0
             )
         }
 }

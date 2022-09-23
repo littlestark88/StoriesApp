@@ -1,4 +1,4 @@
-package com.example.storyapp.data.local
+package com.example.storyapp.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -21,5 +21,11 @@ data class GetAllStoriesEntity(
     var photoUrl: String,
 
     @SerializedName("createdAt")
-    val createdAt: String?
+    val createdAt: String?,
+
+    @SerializedName("lat")
+    val latitude: Double?,
+
+    @SerializedName("lon")
+    val longitude: Double?
 )

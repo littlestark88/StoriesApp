@@ -1,6 +1,9 @@
 package com.example.storyapp.data
 
-import androidx.paging.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.storyapp.base.ApiResponse
 import com.example.storyapp.base.BaseResponse
 import com.example.storyapp.data.lib.NetworkBoundResource
@@ -9,7 +12,6 @@ import com.example.storyapp.data.local.StoriesDatabase
 import com.example.storyapp.data.remote.RemoteDataSource
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
-import com.example.storyapp.data.remote.request.poststories.PostStoriesRequestItem
 import com.example.storyapp.data.remote.request.register.RegisterRequestItem
 import com.example.storyapp.data.remote.response.login.LoginResponse
 import com.example.storyapp.domain.IStoriesRepository
@@ -23,6 +25,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class StoriesRepository(
     private val databaseStories: StoriesDatabase,
@@ -46,7 +49,9 @@ class StoriesRepository(
     override suspend fun postStories(
         token: String,
         file: MultipartBody.Part,
-        postStoriesRequestItem: PostStoriesRequestItem
+        description: RequestBody,
+        latitude: RequestBody?,
+        longitude: RequestBody?
     ): Flow<Resource<Stories>> {
         return object : NetworkBoundResource<Stories, BaseResponse>() {
             override fun fetchFromNetwork(data: BaseResponse?): Flow<Stories> {
@@ -54,7 +59,7 @@ class StoriesRepository(
             }
 
             override suspend fun createCall(): Flow<ApiResponse<BaseResponse>> {
-                return remoteDataSource.postStories(token, file, postStoriesRequestItem)
+                return remoteDataSource.postStories(token, file, description, latitude, longitude)
             }
         }.asFlow()
     }
@@ -71,23 +76,12 @@ class StoriesRepository(
         }.asFlow()
     }
 
-    //    override suspend fun getStories(token: String): Flow<Resource<GetAllStories>> {
-//        return object : NetworkBoundResource<GetAllStories, GetAllStoriesResponse>() {
-//            override fun fetchFromNetwork(data: GetAllStoriesResponse?): Flow<GetAllStories> {
-//                return flowOf(data).map { DataMapper.mapGetStoriesToDomain(data) }
-//            }
-//
-//            override suspend fun createCall(): Flow<ApiResponse<GetAllStoriesResponse>> {
-////                return remoteDataSource.getStories(token)
-//            }
-//        }.asFlow()
-//    }
     override fun getAllStories(token: String): Flow<PagingData<ListGetAllStories>> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(pageSize = 5),
             remoteMediator = StoriesRemoteMediator(databaseStories,apiService,
-                sharePreferences.getToken().toString()
+                sharePreferences
             ),
             pagingSourceFactory = {
                 databaseStories.getAllStoriesDao().getAllStories()
@@ -97,5 +91,10 @@ class StoriesRepository(
         }
     }
 
+    override fun getAllStoriesLocal(): Flow<List<ListGetAllStories>> {
+        return databaseStories.getAllStoriesDao().getAllStoriesWithOutPaging().map {
+            DataMapper.mapGetStoriesWithoutPaging(it)
+        }
+    }
 
 }

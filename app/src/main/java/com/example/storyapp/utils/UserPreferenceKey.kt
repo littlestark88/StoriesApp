@@ -8,7 +8,11 @@ object UserPreferenceKey {
     const val PICTURE = "picture"
     const val IS_BACK_CAMERA = "isBackCamera"
     const val CAMERA_X_RESULT = 200
-    val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+    val REQUIRED_PERMISSIONS = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+    )
     const val REQUEST_CODE_PERMISSIONS = 10
     const val DATA_STORIES = "data_stories"
     const val LIST_IMAGE = "list_image"

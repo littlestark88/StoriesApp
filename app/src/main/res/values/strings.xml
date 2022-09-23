@@ -59,4 +59,9 @@
     <string name="label_stories_widget">Stories Widget</string>
     <string name="label_map">Map</string>
     <string name="label_retry">Retry</string>
+    <string name="label_fail_parsing_style">Style parsing failed.</string>
+    <string name="label_give_permission">Please give a permission your location</string>
+    <string name="label_permission_on_maps">Please give a location permission on menu Maps</string>
+    <string name="label_success_post_stories">Post a new Stories Success</string>
+    <string name="label_please_check_permission">Please check your permission</string>
 </resources>

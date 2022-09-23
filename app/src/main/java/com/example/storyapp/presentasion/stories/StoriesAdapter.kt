@@ -14,10 +14,10 @@ import com.example.storyapp.databinding.ItemListStoriesBinding
 import com.example.storyapp.domain.data.response.ListGetAllStories
 
 class StoriesAdapter
-//    (
+    (
 //    private val data: MutableList<ListGetAllStories>,
-//    private val onClickListener: (ListGetAllStories, ActivityOptionsCompat) -> Unit,
-//)
+    private val onClickListener: (ListGetAllStories, ActivityOptionsCompat) -> Unit,
+)
     : PagingDataAdapter<ListGetAllStories, StoriesAdapter.StoriesViewHolder>(DIFF_CALLBACK) {
 
 //    fun setListStories(addItemListStories: List<ListGetAllStories>?) {
@@ -81,7 +81,7 @@ class StoriesAdapter
                             Pair(tvDescription, "description"),
                         )
 
-//                    onClickListener(data, optionsCompat)
+                    onClickListener(data, optionsCompat)
                 }
             }
         }

@@ -1,8 +1,10 @@
 package com.example.storyapp.presentasion.poststories
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -30,6 +32,8 @@ import com.example.storyapp.utils.UserPreferenceKey.IS_BACK_CAMERA
 import com.example.storyapp.utils.UserPreferenceKey.PICTURE
 import com.example.storyapp.utils.UserPreferenceKey.REQUEST_CODE_PERMISSIONS
 import com.example.storyapp.utils.UserPreferenceKey.REQUIRED_PERMISSIONS
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -44,8 +48,9 @@ class PostStoriesFragment : Fragment() {
     private var getFile: File? = null
     private val storiesViewModel: StoriesViewModel by inject()
     private val sharePreferences: SharePreferences by inject()
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var description: String = ""
-
+    private var getLocation: Location? = null
     private val binding get() = _binding
 
     override fun onCreateView(
@@ -59,6 +64,7 @@ class PostStoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -66,6 +72,7 @@ class PostStoriesFragment : Fragment() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
+        getDeviceLocation()
         with(binding) {
             this?.btnCamera?.setOnClickListener { intentCameraX() }
             this?.btnGallery?.setOnClickListener { intentGallery() }
@@ -74,7 +81,7 @@ class PostStoriesFragment : Fragment() {
                     requireActivity(),
                     message = getString(R.string.label_confirm_upload),
                     positiveListener = {
-                        hitPostStories()
+                            hitPostStories()
                     }
                 )
             }
@@ -89,7 +96,7 @@ class PostStoriesFragment : Fragment() {
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             with(binding) {
                 description = this?.edtDescription?.text.toString().trim()
-                    this?.btnUpload?.isEnabled  = description.isNotEmpty() && getFile != null
+                this?.btnUpload?.isEnabled = description.isNotEmpty() && getFile != null
             }
 
         }
@@ -99,29 +106,44 @@ class PostStoriesFragment : Fragment() {
     }
 
     private fun hitPostStories() {
+
+        val latitude = getLocation?.latitude?.toString()
+        val longitude = getLocation?.longitude?.toString()
         val file = reduceFileImage(getFile as File)
         val requestDescription = description.toRequestBody("text/plain".toMediaType())
+        val requestLatitude = latitude?.toRequestBody("text/plain".toMediaType())
+        val requestLongitude = longitude?.toRequestBody("text/plain".toMediaType())
         val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
             getString(R.string.label_photo),
             file.name,
             requestImageFile
         )
-//        storiesViewModel.postStories(
-//            sharePreferences.getToken().toString(),
-//            imageMultipart,
-//            requestDescription
-//        )
+        storiesViewModel.postStories(
+            sharePreferences.getToken().toString(),
+            imageMultipart,
+            requestDescription,
+            requestLatitude,
+            requestLongitude
+        )
         postStoriesObserver()
+
     }
 
     private fun postStoriesObserver() {
         storiesViewModel.postStories.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is Resource.Loading -> showLoading(requireActivity())
                 is Resource.Success -> {
                     hideLoading()
-                    view?.findNavController()?.navigate(R.id.action_navigation_post_stories_to_navigation_stories)
+                    showCustomAlertDialogOneButton(
+                        requireContext(),
+                        message = getString(R.string.label_success_post_stories),
+                        positiveListener = {
+                            view?.findNavController()
+                                ?.navigate(R.id.action_navigation_post_stories_to_navigation_stories)
+                        }
+                    )
                 }
                 is Resource.Error -> {
                     hideLoading()
@@ -154,7 +176,10 @@ class PostStoriesFragment : Fragment() {
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(requireActivity(), it) == PackageManager.PERMISSION_GRANTED
+        ContextCompat.checkSelfPermission(
+            requireActivity(),
+            it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onRequestPermissionsResult(
@@ -202,6 +227,57 @@ class PostStoriesFragment : Fragment() {
             getFile = myFile
 
             binding?.imgPhoto?.setImageURI(selectedImg)
+        }
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permission ->
+            when {
+                permission[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                    getDeviceLocation()
+                }
+                permission[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                    getDeviceLocation()
+                }
+                else -> {
+
+                }
+            }
+        }
+
+
+    private fun checkPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun getDeviceLocation() {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        ) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    getLocation = location
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.label_give_permission),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+        } else {
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
         }
     }
 }

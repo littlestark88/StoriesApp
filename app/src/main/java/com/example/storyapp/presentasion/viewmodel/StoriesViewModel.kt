@@ -5,13 +5,12 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.storyapp.data.lib.Resource
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
-import com.example.storyapp.data.remote.request.poststories.PostStoriesRequestItem
 import com.example.storyapp.data.remote.request.register.RegisterRequestItem
 import com.example.storyapp.domain.IStoriesUseCase
-import com.example.storyapp.domain.data.response.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
+import com.example.storyapp.domain.data.response.ListGetAllStories
+import com.example.storyapp.domain.data.response.Login
+import com.example.storyapp.domain.data.response.Register
+import com.example.storyapp.domain.data.response.Stories
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -39,9 +38,15 @@ class StoriesViewModel(
             }
         }
 
-    fun postStories(token: String, file: MultipartBody.Part, postStoriesRequestItem: PostStoriesRequestItem) =
+    fun postStories(
+        token: String,
+        file: MultipartBody.Part,
+        description: RequestBody,
+        latitude: RequestBody?,
+        longitude: RequestBody?
+    ) =
         viewModelScope.launch {
-            storiesUseCase.postStories(token, file, postStoriesRequestItem).collect {
+            storiesUseCase.postStories(token, file, description, latitude, longitude).collect {
                 _postStories.value = it
             }
         }
@@ -53,6 +58,8 @@ class StoriesViewModel(
             }
         }
 
-    fun getStories(token: String) =
+    val getStoriesLocal = storiesUseCase.getAllStoriesLocal().asLiveData()
+
+    fun getStories(token: String): LiveData<PagingData<ListGetAllStories>> =
         storiesUseCase.getAllStories(token).cachedIn(viewModelScope).asLiveData()
 }

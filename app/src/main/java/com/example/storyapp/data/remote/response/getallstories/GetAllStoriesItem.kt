@@ -16,5 +16,11 @@ data class GetAllStoriesItem(
     var photoUrl: String,
 
     @SerializedName("createdAt")
-    val createdAt: String?
+    val createdAt: String?,
+
+    @SerializedName("lat")
+    val latitude: Double?,
+
+    @SerializedName("lon")
+    val longitude: Double?
 )
