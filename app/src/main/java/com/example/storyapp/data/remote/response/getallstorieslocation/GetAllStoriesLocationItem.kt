@@ -1,15 +1,10 @@
-package com.example.storyapp.data.local.entity
+package com.example.storyapp.data.remote.response.getallstorieslocation
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "GetAllStoriesTable")
-data class GetAllStoriesEntity(
-
-    @PrimaryKey
+data class GetAllStoriesLocationItem(
     @SerializedName("id")
-    val id: String,
+    val id: String?,
 
     @SerializedName("name")
     val name: String?,
@@ -21,5 +16,11 @@ data class GetAllStoriesEntity(
     var photoUrl: String,
 
     @SerializedName("createdAt")
-    val createdAt: String?
+    val createdAt: String?,
+
+    @SerializedName("lat")
+    val latitude: Double?,
+
+    @SerializedName("lon")
+    val longitude: Double?
 )

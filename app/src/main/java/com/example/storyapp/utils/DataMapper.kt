@@ -5,6 +5,8 @@ import androidx.paging.map
 import com.example.storyapp.base.BaseResponse
 import com.example.storyapp.data.local.entity.GetAllStoriesEntity
 import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesItem
+import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationItem
+import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationResponse
 import com.example.storyapp.data.remote.response.login.LoginItem
 import com.example.storyapp.data.remote.response.login.LoginResponse
 import com.example.storyapp.domain.data.response.*
@@ -47,9 +49,7 @@ object DataMapper {
                 name = it.name.orEmpty(),
                 description = it.description.orEmpty(),
                 photoUrl = it.photoUrl,
-                createdAt = it.createdAt.orEmpty(),
-                latitude = it.latitude ?: 0.0,
-                longitude = it.longitude ?: 0.0
+                createdAt = it.createdAt.orEmpty()
             )
         } ?: emptyList()
 
@@ -60,16 +60,22 @@ object DataMapper {
                 name = it.name.orEmpty(),
                 description = it.description.orEmpty(),
                 photoUrl = it.photoUrl,
-                createdAt = it.createdAt.orEmpty(),
-                latitude = it.latitude ?: 0.0,
-                longitude = it.longitude?: 0.0
+                createdAt = it.createdAt.orEmpty()
             )
         }
 
-    fun mapGetStoriesWithoutPaging(listData: List<GetAllStoriesEntity>): List<ListGetAllStories> =
-        listData.map {
-            ListGetAllStories(
-                id = it.id,
+    fun mapGetStoriesWitLocation(data : GetAllStoriesLocationResponse?): GetAllStoriesLocation {
+        return GetAllStoriesLocation(
+            error = data?.error ?: false,
+            message = data?.message.orEmpty(),
+            listGetStoriesLocation = mapListStoriesLocation(data?.getAllStoriesLocationItem)
+        )
+    }
+
+    private fun mapListStoriesLocation(data: List<GetAllStoriesLocationItem>?): List<ListGetAllStoriesLocation> =
+        data?.map {
+            ListGetAllStoriesLocation(
+                id = it.id.orEmpty(),
                 name = it.name.orEmpty(),
                 description = it.description.orEmpty(),
                 photoUrl = it.photoUrl,
@@ -77,7 +83,8 @@ object DataMapper {
                 latitude = it.latitude ?: 0.0,
                 longitude = it.longitude ?: 0.0
             )
-        }
+        } ?: emptyList()
+
 }
 
 

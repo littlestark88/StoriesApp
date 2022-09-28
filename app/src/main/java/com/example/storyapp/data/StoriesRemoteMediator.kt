@@ -49,10 +49,8 @@ class StoriesRemoteMediator(
             }
         }
 
-        val location = 1
-
         return try {
-            val responseData = apiService.getAllStories(sharePreferences.getToken().toString(), state.config.pageSize, page, location)
+            val responseData = apiService.getAllStories(sharePreferences.getToken().toString(), state.config.pageSize, page)
             val endOfPaginationReached = responseData.getAllStoriesItem?.isEmpty()
             database.withTransaction {
                 if(loadType == LoadType.REFRESH) {
@@ -69,7 +67,7 @@ class StoriesRemoteMediator(
                     for(i in responseData.getAllStoriesItem!!) {
                         listImage.addAll(listOf(i.photoUrl))
                     }
-                    sharePreferences.saveListString(LIST_IMAGE, listImage)
+                sharePreferences.saveListString(LIST_IMAGE, listImage)
                 database.getAllStoriesDao().insertAllStories(DataMapper.mapGetStoriesEntity(responseData.getAllStoriesItem ))
             }
             MediatorResult.Success(endOfPaginationReached = endOfPaginationReached == true)

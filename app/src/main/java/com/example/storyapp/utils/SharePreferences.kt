@@ -1,6 +1,8 @@
 package com.example.storyapp.utils
 
 import android.content.Context
+import com.example.storyapp.utils.UserPreferenceKey.MAP_LATITUDE
+import com.example.storyapp.utils.UserPreferenceKey.MAP_LONGITUDE
 import com.example.storyapp.utils.UserPreferenceKey.TOKEN
 import com.example.storyapp.utils.UserPreferenceKey.USER
 
@@ -16,6 +18,26 @@ class SharePreferences(context: Context) {
 
     fun getToken(): String? {
         return preferences.getString(TOKEN, "")
+    }
+
+    fun saveLatitude(value: String) {
+        val editor = preferences.edit()
+        editor.putString(MAP_LATITUDE, value)
+        editor.apply()
+    }
+
+    fun getLatitude(): String? {
+        return preferences.getString(MAP_LATITUDE, "")
+    }
+
+    fun saveLongitude(value: String) {
+        val editor = preferences.edit()
+        editor.putString(MAP_LONGITUDE, value)
+        editor.apply()
+    }
+
+    fun getLongitude(): String? {
+        return preferences.getString(MAP_LONGITUDE, "")
     }
 
     fun clearPreferences () {

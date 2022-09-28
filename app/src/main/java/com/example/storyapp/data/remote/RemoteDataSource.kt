@@ -6,7 +6,10 @@ import com.example.storyapp.base.BaseResponse
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
 import com.example.storyapp.data.remote.request.register.RegisterRequestItem
+import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesResponse
+import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationResponse
 import com.example.storyapp.data.remote.response.login.LoginResponse
+import com.example.storyapp.domain.data.response.GetAllStoriesLocation
 import com.example.storyapp.utils.SharePreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -40,8 +43,8 @@ class RemoteDataSource(
         token: String,
         fileImage: MultipartBody.Part,
         description: RequestBody,
-        latitude: RequestBody?,
-        longitude: RequestBody?
+        latitude: RequestBody,
+        longitude: RequestBody
     ): Flow<ApiResponse<BaseResponse>> {
         return flow {
             try {
@@ -65,6 +68,22 @@ class RemoteDataSource(
                 if (data.message?.isNotEmpty() == true) {
                     emit(ApiResponse.Success(data))
                     sharePreferences.saveToken("Bearer ${data.loginResult?.token.toString()}")
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("remoteDataSource: ", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getMapStories(token: String): Flow<ApiResponse<GetAllStoriesLocationResponse>> {
+        return flow {
+            try {
+                val data = apiService.getMapStories(token)
+                if (data.message?.isNotEmpty() == true) {
+                    emit(ApiResponse.Success(data))
                 } else {
                     emit(ApiResponse.Empty)
                 }

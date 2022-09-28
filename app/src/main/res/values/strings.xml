@@ -64,4 +64,6 @@
     <string name="label_permission_on_maps">Please give a location permission on menu Maps</string>
     <string name="label_success_post_stories">Post a new Stories Success</string>
     <string name="label_please_check_permission">Please check your permission</string>
+    <string name="label_failed_get_map">Failed to get data location map</string>
+    <string name="label_permission_map">Please allow your permission map at Maps</string>
 </resources>

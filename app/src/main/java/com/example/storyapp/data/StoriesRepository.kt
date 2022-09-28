@@ -13,12 +13,11 @@ import com.example.storyapp.data.remote.RemoteDataSource
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
 import com.example.storyapp.data.remote.request.register.RegisterRequestItem
+import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesResponse
+import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationResponse
 import com.example.storyapp.data.remote.response.login.LoginResponse
 import com.example.storyapp.domain.IStoriesRepository
-import com.example.storyapp.domain.data.response.ListGetAllStories
-import com.example.storyapp.domain.data.response.Login
-import com.example.storyapp.domain.data.response.Register
-import com.example.storyapp.domain.data.response.Stories
+import com.example.storyapp.domain.data.response.*
 import com.example.storyapp.utils.DataMapper
 import com.example.storyapp.utils.SharePreferences
 import kotlinx.coroutines.flow.Flow
@@ -50,8 +49,8 @@ class StoriesRepository(
         token: String,
         file: MultipartBody.Part,
         description: RequestBody,
-        latitude: RequestBody?,
-        longitude: RequestBody?
+        latitude: RequestBody,
+        longitude: RequestBody
     ): Flow<Resource<Stories>> {
         return object : NetworkBoundResource<Stories, BaseResponse>() {
             override fun fetchFromNetwork(data: BaseResponse?): Flow<Stories> {
@@ -91,10 +90,18 @@ class StoriesRepository(
         }
     }
 
-    override fun getAllStoriesLocal(): Flow<List<ListGetAllStories>> {
-        return databaseStories.getAllStoriesDao().getAllStoriesWithOutPaging().map {
-            DataMapper.mapGetStoriesWithoutPaging(it)
-        }
+    override fun getMapStories(token: String): Flow<Resource<GetAllStoriesLocation>> {
+        return object : NetworkBoundResource<GetAllStoriesLocation, GetAllStoriesLocationResponse>() {
+            override fun fetchFromNetwork(data: GetAllStoriesLocationResponse?): Flow<GetAllStoriesLocation> {
+                return flowOf(data).map { DataMapper.mapGetStoriesWitLocation(data) }
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<GetAllStoriesLocationResponse>> {
+                return remoteDataSource.getMapStories(token)
+            }
+
+        }.asFlow()
     }
+
 
 }

@@ -13,8 +13,12 @@ import com.example.storyapp.domain.data.response.ListGetAllStories
 import com.example.storyapp.presentasion.viewmodel.StoriesViewModel
 import com.example.storyapp.utils.SharePreferences
 import com.example.storyapp.utils.UserPreferenceKey.DATA_STORIES
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
 
+
+@OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 class StoriesFragment : Fragment() {
 
     private var _binding: FragmentStoriesBinding? = null

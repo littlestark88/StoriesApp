@@ -1,7 +1,7 @@
 package com.example.storyapp.domain.data.response
 
-data class Login(
+data class GetAllStoriesLocation(
     val error: Boolean,
     val message: String,
-    val listLogin: ListLogin? = null
+    val listGetStoriesLocation: List<ListGetAllStoriesLocation>
 )
