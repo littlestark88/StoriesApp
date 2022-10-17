@@ -58,4 +58,12 @@
     <string name="app_widget_description">Ini adalah keterangan aplikasi widget stories</string>
     <string name="empty_text">Tidak ada data</string>
     <string name="label_stories_widget">Stories Widget</string>
+    <string name="label_map">Map</string>
+    <string name="label_retry">Coba lagi</string>
+    <string name="label_fail_parsing_style">Gagal mengubah style.</string>
+    <string name="label_give_permission">Mohon beri akses location anda</string>
+    <string name="label_permission_on_maps">Mohon beri akses location anda pada menu map</string>
+    <string name="label_success_post_stories">Mengungah cerita baru berhasil</string>
+    <string name="label_please_check_permission">Mohon Check permission anda</string>
+    <string name="label_failed_get_map">Gagak untuk mendapatkan data maop</string>
 </resources>

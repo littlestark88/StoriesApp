@@ -18,7 +18,6 @@ import com.example.storyapp.R
 import com.example.storyapp.data.lib.Resource
 import com.example.storyapp.databinding.FragmentMapsBinding
 import com.example.storyapp.presentasion.viewmodel.StoriesViewModel
-import com.example.storyapp.utils.LoadingUtils
 import com.example.storyapp.utils.LoadingUtils.hideLoading
 import com.example.storyapp.utils.LoadingUtils.showLoading
 import com.example.storyapp.utils.SharePreferences
@@ -86,7 +85,7 @@ class MapsFragment : Fragment() {
                             MarkerOptions()
                                 .position(latLong)
                                 .title(listStories.name)
-                                .snippet("Lat: ${listStories.latitude}, Lon: ${listStories.longitude}")
+                                .snippet(listStories.description)
                         )
                     }
                 }
@@ -129,6 +128,8 @@ class MapsFragment : Fragment() {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 if (location != null) {
                     val latLong = LatLng(location.latitude, location.longitude)
+                    sharePreferences.saveLatitude(location.latitude.toString())
+                    sharePreferences.saveLongitude(location.longitude.toString())
                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLong, 8f))
                 } else {
                     Toast.makeText(

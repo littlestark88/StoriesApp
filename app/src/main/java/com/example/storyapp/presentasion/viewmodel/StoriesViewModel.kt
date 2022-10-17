@@ -29,13 +29,6 @@ class StoriesViewModel(
     val getMapStories: LiveData<Resource<GetAllStoriesLocation>> by lazy { _getMapStories }
     private val _getMapStories = MutableLiveData<Resource<GetAllStoriesLocation>>()
 
-//    fun postRegister(registerRequestItem: RegisterRequestItem) =
-//        viewModelScope.launch {
-//            storiesUseCase.postRegister(registerRequestItem).collect {
-//                _postRegister.value = it
-//            }
-//        }
-
     fun postRegister(registerRequestItem: RegisterRequestItem): Flow<Resource<Register>> {
         _postRegister.value = Resource.Loading()
 

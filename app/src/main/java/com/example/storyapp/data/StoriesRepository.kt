@@ -5,7 +5,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.storyapp.base.ApiResponse
-import com.example.storyapp.base.BaseResponse
 import com.example.storyapp.data.lib.NetworkBoundResource
 import com.example.storyapp.data.lib.Resource
 import com.example.storyapp.data.local.StoriesDatabase
@@ -13,9 +12,10 @@ import com.example.storyapp.data.remote.RemoteDataSource
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
 import com.example.storyapp.data.remote.request.register.RegisterRequestItem
-import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesResponse
 import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationResponse
 import com.example.storyapp.data.remote.response.login.LoginResponse
+import com.example.storyapp.data.remote.response.poststories.PostStoriesResponse
+import com.example.storyapp.data.remote.response.register.RegisterResponse
 import com.example.storyapp.domain.IStoriesRepository
 import com.example.storyapp.domain.data.response.*
 import com.example.storyapp.utils.DataMapper
@@ -34,12 +34,12 @@ class StoriesRepository(
 ): IStoriesRepository {
 
     override suspend fun postRegister(registerRequestItem: RegisterRequestItem): Flow<Resource<Register>> {
-        return object : NetworkBoundResource<Register, BaseResponse>() {
-            override fun fetchFromNetwork(data: BaseResponse?): Flow<Register> {
+        return object : NetworkBoundResource<Register, RegisterResponse>() {
+            override fun fetchFromNetwork(data: RegisterResponse?): Flow<Register> {
                 return flowOf(data).map { DataMapper.mapRegisterToDomain(data) }
             }
 
-            override suspend fun createCall(): Flow<ApiResponse<BaseResponse>> {
+            override suspend fun createCall(): Flow<ApiResponse<RegisterResponse>> {
                 return remoteDataSource.postRegister(registerRequestItem)
             }
         }.asFlow()
@@ -52,12 +52,12 @@ class StoriesRepository(
         latitude: RequestBody,
         longitude: RequestBody
     ): Flow<Resource<Stories>> {
-        return object : NetworkBoundResource<Stories, BaseResponse>() {
-            override fun fetchFromNetwork(data: BaseResponse?): Flow<Stories> {
+        return object : NetworkBoundResource<Stories, PostStoriesResponse>() {
+            override fun fetchFromNetwork(data: PostStoriesResponse?): Flow<Stories> {
                 return flowOf(data).map { DataMapper.mapStoriesToDomain(data) }
             }
 
-            override suspend fun createCall(): Flow<ApiResponse<BaseResponse>> {
+            override suspend fun createCall(): Flow<ApiResponse<PostStoriesResponse>> {
                 return remoteDataSource.postStories(token, file, description, latitude, longitude)
             }
         }.asFlow()

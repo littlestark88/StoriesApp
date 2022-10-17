@@ -193,8 +193,30 @@ class StoriesViewModelTest {
         )
     }
 
+
     @Test
     fun `when Get All Stories response Success NotNull`() = runTest {
+        val data : PagingData<ListGetAllStories> = PagedTestDataSource.snapshot(dummyGetAllStoriesResponse)
+        val expectedStoriesResponse = MutableLiveData<PagingData<ListGetAllStories>>()
+        expectedStoriesResponse.value = data
+        `when`(storiesUseCase.getAllStories(dummyToken)).thenReturn(
+            expectedStoriesResponse.asFlow()
+        )
+
+        val getAllStories = storiesViewModel.getStories(dummyToken)
+        val actualStories: PagingData<ListGetAllStories> = getAllStories.getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoriesAdapter.DIFF_CALLBACK,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = mainDispatcherRule.testDispatcher
+        )
+        differ.submitData(actualStories)
+        Assert.assertNotNull(differ.snapshot())
+    }
+
+    @Test
+    fun `when Get All Stories response Error NotNull`() = runTest {
         val data : PagingData<ListGetAllStories> = PagedTestDataSource.snapshot(dummyGetAllStoriesResponse)
         val expectedStoriesResponse = MutableLiveData<PagingData<ListGetAllStories>>()
         expectedStoriesResponse.value = data

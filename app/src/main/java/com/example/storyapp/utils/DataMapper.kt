@@ -2,24 +2,25 @@ package com.example.storyapp.utils
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.example.storyapp.base.BaseResponse
 import com.example.storyapp.data.local.entity.GetAllStoriesEntity
 import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesItem
 import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationItem
 import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationResponse
 import com.example.storyapp.data.remote.response.login.LoginItem
 import com.example.storyapp.data.remote.response.login.LoginResponse
+import com.example.storyapp.data.remote.response.poststories.PostStoriesResponse
+import com.example.storyapp.data.remote.response.register.RegisterResponse
 import com.example.storyapp.domain.data.response.*
 
 object DataMapper {
-    fun mapRegisterToDomain(response: BaseResponse?): Register {
+    fun mapRegisterToDomain(response: RegisterResponse?): Register {
         return Register(
             error = response?.error ?: false,
             message = response?.message.orEmpty()
         )
     }
 
-    fun mapStoriesToDomain(response: BaseResponse?): Stories {
+    fun mapStoriesToDomain(response: PostStoriesResponse?): Stories {
         return Stories(
             error = response?.error ?: false,
             message = response?.message.orEmpty()

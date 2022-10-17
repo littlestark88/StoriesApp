@@ -2,14 +2,13 @@ package com.example.storyapp.data.remote
 
 import android.util.Log
 import com.example.storyapp.base.ApiResponse
-import com.example.storyapp.base.BaseResponse
 import com.example.storyapp.data.remote.network.ApiService
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
 import com.example.storyapp.data.remote.request.register.RegisterRequestItem
-import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesResponse
 import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationResponse
 import com.example.storyapp.data.remote.response.login.LoginResponse
-import com.example.storyapp.domain.data.response.GetAllStoriesLocation
+import com.example.storyapp.data.remote.response.poststories.PostStoriesResponse
+import com.example.storyapp.data.remote.response.register.RegisterResponse
 import com.example.storyapp.utils.SharePreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +22,7 @@ class RemoteDataSource(
     private val sharePreferences: SharePreferences
 ) {
 
-    suspend fun postRegister(registerRequestItem: RegisterRequestItem): Flow<ApiResponse<BaseResponse>> {
+    suspend fun postRegister(registerRequestItem: RegisterRequestItem): Flow<ApiResponse<RegisterResponse>> {
         return flow {
             try {
                 val data = apiService.postRegister(registerRequestItem)
@@ -45,7 +44,7 @@ class RemoteDataSource(
         description: RequestBody,
         latitude: RequestBody,
         longitude: RequestBody
-    ): Flow<ApiResponse<BaseResponse>> {
+    ): Flow<ApiResponse<PostStoriesResponse>> {
         return flow {
             try {
                 val data =

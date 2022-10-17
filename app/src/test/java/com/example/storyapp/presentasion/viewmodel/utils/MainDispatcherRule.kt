@@ -8,9 +8,8 @@ import org.junit.runner.Description
 
 @ExperimentalCoroutinesApi
 class MainDispatcherRule(
-    val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
-): TestWatcher(),
-    TestCoroutineScope by TestCoroutineScope(testDispatcher){
+    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
+): TestWatcher(){
 
     override fun starting(description: Description) {
         super.starting(description)

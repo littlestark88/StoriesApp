@@ -1,12 +1,12 @@
 package com.example.storyapp.data.remote.network
 
-import com.example.storyapp.base.BaseResponse
 import com.example.storyapp.data.remote.request.login.LoginRequestItem
 import com.example.storyapp.data.remote.request.register.RegisterRequestItem
 import com.example.storyapp.data.remote.response.getallstories.GetAllStoriesResponse
 import com.example.storyapp.data.remote.response.getallstorieslocation.GetAllStoriesLocationResponse
 import com.example.storyapp.data.remote.response.login.LoginResponse
-import com.example.storyapp.domain.data.response.GetAllStoriesLocation
+import com.example.storyapp.data.remote.response.poststories.PostStoriesResponse
+import com.example.storyapp.data.remote.response.register.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -14,7 +14,7 @@ import retrofit2.http.*
 interface ApiService {
 
     @POST("register")
-    suspend fun postRegister(@Body registerRequestItem: RegisterRequestItem): BaseResponse
+    suspend fun postRegister(@Body registerRequestItem: RegisterRequestItem): RegisterResponse
 
     @POST("login")
     suspend fun postLogin(@Body loginRequestItem: LoginRequestItem): LoginResponse
@@ -27,7 +27,7 @@ interface ApiService {
         @Part("description") description : RequestBody,
         @Part("lat") latitude: RequestBody,
         @Part("lon") longitude: RequestBody
-    ): BaseResponse
+    ): PostStoriesResponse
 
     @GET("stories")
     suspend fun getAllStories(

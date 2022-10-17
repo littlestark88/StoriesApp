@@ -1,0 +1,41 @@
+Stories ViewModel Test
+ A. LoginViewModelTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.error dan tidak null
+
+ B. RegisterViewModelTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.error dan tidak null
+
+ C. PostStoriesViewModelTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.error dan tidak null
+
+ D. GetAllStoriesViewModelTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.error dan tidak null
+
+ E. GetAllStoriesLocationViewModelTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.error dan tidak null
+
+Stories Repository Test
+ A. LoginRepositoryTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.success sama dengan response yang di harapkan/expected
+
+ B. RegisterRepositoryTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.success sama dengan response yang di harapkan/expected
+
+ C. PostStoriesRepositoryTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.success sama dengan response yang di harapkan/expected
+
+ D. GetAllStoriesRepositoryTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.success sama dengan response yang di harapkan/expected
+
+ E. GetAllStoriesLocationRepositoryTest
+    - Memastikan mengembalikan resource.success dan tidak null
+    - Memastikan mengembalikan resource.success sama dengan response yang di harapkan/expected

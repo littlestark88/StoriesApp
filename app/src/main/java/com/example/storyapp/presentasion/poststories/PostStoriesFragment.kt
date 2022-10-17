@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,7 +81,7 @@ class PostStoriesFragment : Fragment() {
                         } else {
                             showCustomAlertDialogOneButton(
                                 requireContext(),
-                                message = getString(R.string.label_permission_map)
+                                message = getString(R.string.label_permission_on_maps)
                             )
                         }
                     }
